@@ -1,23 +1,19 @@
-
-CREATE TABLE Department(
- DepartmentID INT,
- DepartmentName VARCHAR(30)
-); INSERT INTO Department VALUES
-(101,'Computer Science'),
-(102,'Mathematics'),
-(103,'Physics');
-CREATE TABLE Student(
- StudentID INT,
- StudentName VARCHAR(20),
- DepartmentID INT
+CREATE TABLE IF NOT EXISTS Department (
+    DepartmentID INT PRIMARY KEY,
+    DepartmentName VARCHAR(50) NOT NULL
 );
-INSERT INTO Student VALUES
-(1001,'Arun',101),
-(1002,'Divya',102),
-(1003,'Karthik',101),
-(1004,'Nisha',103);
-SELECT Student.StudentName,
- Department.DepartmentName
+
+CREATE TABLE IF NOT EXISTS Student (
+    StudentID INT PRIMARY KEY,
+    StudentName VARCHAR(50) NOT NULL,
+    DepartmentID INT,
+    FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID)
+);
+
+SELECT
+    Student.StudentID,
+    Student.StudentName,
+    Department.DepartmentName
 FROM Student
 INNER JOIN Department
 ON Student.DepartmentID = Department.DepartmentID;
